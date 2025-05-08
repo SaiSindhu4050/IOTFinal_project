@@ -189,9 +189,9 @@ from(bucket: "weatherdata")
 #Team & Contributors
 Group project of 3 members:
 
-Sai Sindhu Simhadri
-Yamini Viswanadhapalli
-Harshida Thasmiya Kokkinti
+- Sai Sindhu Simhadri
+- Yamini Viswanadhapalli
+- Harshida Thasmiya Kokkinti
 
 # Reflection
 This project taught us how to perform hardware interfacing, cloud communication protocols, time-series analytics, and dashboard-driven storytelling — all of which are crucial for modern IoT applications. Finally understood, IoT isn't just about the technical components—it's about creating bridges between the physical and digital worlds that help us understand our environment in new, meaningful ways.
