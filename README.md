@@ -9,13 +9,12 @@ The data is transmitted via the MQTT protocol (HiveMQ Cloud) and ingested into a
 - HiLetgo ESP-WROOM-32 (ESP32) board
 - Waveshare BME280 sensor (Temperature, Pressure, Humidity, Altitude)
 # Software & Tools:
-- Arduino Iot cloud website (for programming ESP32)
-- Python through vscode (for data cleaning)
-- HiveMQ Cloud (MQTT broker)
-- Docker to create Influxdb containers
-- InfluxDB (for time-series data storage)
-- Grafana (for visualization)
-- VS code (for Visualization using ML codes)
+- Arduino Iot cloud website 
+- HiveMQ Cloud 
+- Docker
+- InfluxDB 
+- Grafana
+- Visual Studio
 # 🧱 System Architecture
 | Layer           | Tool/Service                        |
 | --------------- | ----------------------------------- |
@@ -44,18 +43,22 @@ The data is transmitted via the MQTT protocol (HiveMQ Cloud) and ingested into a
 - ✅ Real-time environmental data collection
 - 🔒 Secure MQTT communication (TLS/SSL)
 - 📥 Efficient ingestion into InfluxDB
-- 🧹 Data cleaning pipeline:
-Remove NaN values
+- **🧹 Data cleaning pipeline:**
+- Remove NaN values
 - Filter outliers (e.g., altitude < 25m)
-- 📊 Visualization options:
-Grafana dashboards
-Python ML charts (bar, line, scatter, heatmap)
+- **🧠 Smart location inference:**
+- If temperature < 25°C → Location is set to "Inside"
+- If temperature ≥ 25°C → Location is set to "Outside"
+- **📊 Visualization options:**
+- Grafana dashboards
+- Python ML charts (bar, line, scatter, heatmap)
 - 📂 Clean modular project structure
 # 📅 Data Collection Details
 - The data was collected at a 1-minute time interval on different days.
 - Total Rows Collected: 1115
 - Inside: 453 rows
 - Outside: 703 rows
+- The Arduino code automatically assigns "Inside" if temperature < 25°C, and "Outside" otherwise.
 # 🐍 Python Scripts
 | Script Name          | Description                                                                                                    |
 | -------------------- | -------------------------------------------------------------------------------------------------------------- |
@@ -98,6 +101,10 @@ Python ML charts (bar, line, scatter, heatmap)
 │   ├── Visualization-4.py               # Humidity vs Pressure
 │   └── Visualization-5.py               # Weather vs Time
 │
+├── Data/
+│   └── mybucket.csv (raw data)
+│   └── weatherdata.csv (cleaned data)
+│
 ├── Grafana/
 │   └── Visualization links in grafana.pdf  # Screenshot/links to dashboards
 │
@@ -115,6 +122,7 @@ docker run --name mysql -d ^
     -e MYSQL_USER=remote_user ^
     -e MYSQL_PASSWORD=remote_user-pwd ^
     docker.io/library/mysql:8.4.4
+```
 - 🐳 Create and Run Container
 ```
 docker run -d -p 8086:8086 \
@@ -128,6 +136,7 @@ docker run -d -p 8086:8086 \
   -e DOCKER_INFLUXDB_INIT_BUCKET=mybucket \
   -e DOCKER_INFLUXDB_INIT_RETENTION=1h \
   docker.io/library/influxdb:latest
+```
 # 📂 Flux Queries (InfluxDB)
 - 🔍 1. Query from Raw Data (mybucket bucket)  
 ```flux
@@ -161,3 +170,11 @@ from(bucket: "weatherdata")
 - docker network connect my_network myinfluxdbs
 - docker network connect my_network mygrafana
 - **Note:** run these commands in windows powershell.
+# 🧠 Key Learnings
+- End-to-End IoT Pipeline Design: Gained hands-on experience in building a full-stack IoT pipeline, from hardware setup to cloud-based data ingestion, processing, and visualization.
+- MQTT Protocol with HiveMQ Cloud: Learned how to securely publish and subscribe to real-time sensor data over MQTT using SSL/TLS and authenticated sessions.
+- InfluxDB Time-Series Data Handling: Understood how to structure, tag, and store time-series data using the InfluxDB 2.x client library.
+- Data Cleaning and Transformation: Applied Python techniques to filter raw sensor data (e.g., removing NaNs, filtering low-altitude noise) and prepare it for analytics.
+- Visualization Using Grafana & Python: Explored Grafana for real-time dashboards and used Matplotlib/Seaborn in Python for advanced statistical plots and trend analysis.
+- Docker for Local Environment: Used Docker to quickly set up and manage InfluxDB and Grafana containers.
+- IoT Best Practices: Implemented secure communication, structured data design, and modular coding practices suitable for scalable IoT systems.
