@@ -6,16 +6,16 @@ This project implements a Smart Weather Station using an ESP32 microcontroller a
 The data is transmitted via the MQTT protocol (HiveMQ Cloud) and ingested into an InfluxDB time-series database. A Python pipeline then cleans and filters this data, storing the results in a separate bucket for analysis and visualization using Grafana dashboards and custom ML plots in Visual Studio Code.
 # 🛠️ Components
 # Hardware:
-HiLetgo ESP-WROOM-32 (ESP32) board
-Waveshare BME280 sensor (Temperature, Pressure, Humidity, Altitude)
+- HiLetgo ESP-WROOM-32 (ESP32) board
+- Waveshare BME280 sensor (Temperature, Pressure, Humidity, Altitude)
 # Software & Tools:
-Arduino Iot cloud website (for programming ESP32)
-Python through vscode (for data cleaning)
-HiveMQ Cloud (MQTT broker)
-Docker to create Influxdb containers
-InfluxDB (for time-series data storage)
-Grafana (for visualization)
-VS code (for Visualization using ML codes)
+- Arduino Iot cloud website (for programming ESP32)
+- Python through vscode (for data cleaning)
+- HiveMQ Cloud (MQTT broker)
+- Docker to create Influxdb containers
+- InfluxDB (for time-series data storage)
+- Grafana (for visualization)
+- VS code (for Visualization using ML codes)
 # 🧱 System Architecture
 | Layer           | Tool/Service                        |
 | --------------- | ----------------------------------- |
@@ -29,7 +29,7 @@ VS code (for Visualization using ML codes)
 | Visualization   | Grafana                             |
 
 # **📡 Data Flow**
-ESP32 + BME280 Sensor
+- ESP32 + BME280 Sensor
         ↓ (via MQTT)
      HiveMQ Cloud
         ↓
