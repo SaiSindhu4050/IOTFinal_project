@@ -155,6 +155,7 @@ from(bucket: "weatherdata")
   |> keep(columns: ["_time", "temperature", "humidity", "pressure", "altitude", "location", "device"])
   |> filter(fn: (r) => exists r.temperature and exists r.humidity and exists r.pressure and exists r.altitude)
   |> count(column: "temperature")
+```
 # 🐳 Docker Networking (Grafana + InfluxDB)
 - docker network create my_network
 - docker network connect my_network myinfluxdbs
