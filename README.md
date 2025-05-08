@@ -106,6 +106,7 @@ Python ML charts (bar, line, scatter, heatmap)
 # 🐬 MySQL Container Setup (Windows)
 - To set up a local MySQL container with Docker:
 - 📁 Step-by-Step
+```
 docker run --name mysql -d ^
     -p 3306:3306 ^
     -e MYSQL_ROOT_PASSWORD=root-pwd ^
@@ -115,6 +116,7 @@ docker run --name mysql -d ^
     -e MYSQL_PASSWORD=remote_user-pwd ^
     docker.io/library/mysql:8.4.4
 - 🐳 Create and Run Container
+```
 docker run -d -p 8086:8086 \
   --name myinflux \
   -v "$PWD/data:/var/lib/influxdb2" \
@@ -157,4 +159,4 @@ from(bucket: "weatherdata")
 - docker network create my_network
 - docker network connect my_network myinfluxdbs
 - docker network connect my_network mygrafana
-- Note: run this commands in windows powershell.
+- **Note:** run these commands in windows powershell.
