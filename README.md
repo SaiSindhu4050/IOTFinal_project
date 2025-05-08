@@ -1,5 +1,5 @@
 # **🌤️ Smart Weather Station IoT Project**
-# **🌦️ IoT Weather Station – Arduino + MQTT + InfluxDB + Grafana/VS Code**
+# **🌦️ IoT Weather Station – Arduino + MQTT + InfluxDB 2.x + Grafana/VS Code**
 # 📝 Project Overview
 This project implements a Smart Weather Station using an ESP32 microcontroller and a BME280 environmental sensor. It collects real-time environmental data — temperature, humidity, pressure, altitude, and location (from Arduino IoT Cloud).
 
@@ -24,7 +24,7 @@ The data is transmitted via the MQTT protocol (HiveMQ Cloud) and ingested into a
 | Protocol        | MQTT (via HiveMQ Cloud)             |
 |Containers       | Docker                              |
 | Data Ingestion  | Python (paho-mqtt, influxdb-client) |
-| Storage         | InfluxDB                            |
+| Storage         | InfluxDB 2.x                        |
 | Visualization   | Grafana                             |
 
 # **📡 Data Flow**
@@ -34,9 +34,9 @@ The data is transmitted via the MQTT protocol (HiveMQ Cloud) and ingested into a
         ↓  
 - Python MQTT Client  
         ↓  
-- InfluxDB (Raw Data — Bucket: `mybucket`)  
+- InfluxDB 2.x (Raw Data — Bucket: `mybucket`)  
         ↓ (Python Cleaning Script)  
-- InfluxDB (Cleaned Data — Bucket: `weatherdata`)  
+- InfluxDB 2.x (Cleaned Data — Bucket: `weatherdata`)  
         ↓  
 - Visualization (Grafana) + ML (VS Code)
 # 🧪 Key Features
@@ -110,6 +110,13 @@ The data is transmitted via the MQTT protocol (HiveMQ Cloud) and ingested into a
 │
 ├── README.md                            # Project documentation
 ```
+# How to Run 
+- Upload Weather_station_apr23a.ino to the Arduino
+- Start MQTT.py to send sensor data via MQTT
+- Run Influx.py to write data into InfluxDB
+- Open Grafana → Navigate to Data Sources → Connect to InfluxDB → Build dashboards
+- Visualize real-time weather data activity
+- Open VS code give the ML python scripts to create the visualizations
 # 🐬 MySQL Container Setup (Windows)
 - To set up a local MySQL container with Docker:
 - 📁 Step-by-Step
@@ -178,3 +185,13 @@ from(bucket: "weatherdata")
 - Visualization Using Grafana & Python: Explored Grafana for real-time dashboards and used Matplotlib/Seaborn in Python for advanced statistical plots and trend analysis.
 - Docker for Local Environment: Used Docker to quickly set up and manage InfluxDB and Grafana containers.
 - IoT Best Practices: Implemented secure communication, structured data design, and modular coding practices suitable for scalable IoT systems.
+- 
+#Team & Contributors
+Group project of 3 members:
+
+Sai Sindhu Simhadri
+Yamini Viswanadhapalli
+Harshida Thasmiya Kokkinti
+
+# Reflection
+This project taught us how to perform hardware interfacing, cloud communication protocols, time-series analytics, and dashboard-driven storytelling — all of which are crucial for modern IoT applications. Finally understood, IoT isn't just about the technical components—it's about creating bridges between the physical and digital worlds that help us understand our environment in new, meaningful ways.
