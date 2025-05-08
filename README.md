@@ -23,23 +23,23 @@ The data is transmitted via the MQTT protocol (HiveMQ Cloud) and ingested into a
 | Microcontroller | HiLetgo ESP-WROOM-32 (ESP32)        |
 |Software         | Arduino Iot cloud website           |
 | Protocol        | MQTT (via HiveMQ Cloud)             |
-|Containers       | Docker
+|Containers       | Docker                              |
 | Data Ingestion  | Python (paho-mqtt, influxdb-client) |
 | Storage         | InfluxDB                            |
 | Visualization   | Grafana                             |
 
 # **📡 Data Flow**
-- ESP32 + BME280 Sensor
-        ↓ (via MQTT)
-     HiveMQ Cloud
-        ↓
-    Python MQTT Client 
-        ↓
-   InfluxDB (Raw Data - Bucket: `mybucket`)
-        ↓ (Python Cleaning Script)
-   InfluxDB (Cleaned Data - Bucket: `weatherdata`)
-        ↓
-   Visualization(grafana) + ML(VS code)
+- ESP32 + BME280 Sensor  
+        ↓ (via MQTT)  
+- HiveMQ Cloud  
+        ↓  
+- Python MQTT Client  
+        ↓  
+- InfluxDB (Raw Data — Bucket: `mybucket`)  
+        ↓ (Python Cleaning Script)  
+- InfluxDB (Cleaned Data — Bucket: `weatherdata`)  
+        ↓  
+- Visualization (Grafana) + ML (VS Code)
 # 🧪 Key Features
 - ✅ Real-time environmental data collection
 - 🔒 Secure MQTT communication (TLS/SSL)
@@ -128,14 +128,16 @@ docker run -d -p 8086:8086 \
   docker.io/library/influxdb:latest
 # 📂 Flux Queries (InfluxDB)
 - 🔍 1. Query from Raw Data (mybucket bucket)  
+```flux
 from(bucket: "mybucket")
   |> range(start: -30d)
   |> filter(fn: (r) => r._measurement == "weather_data")
   |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value")
   |> keep(columns: ["_time", "temperature", "humidity", "pressure", "altitude", "location", "device"])
   |> sort(columns: ["_time"])
-- 🧪 2. Query from Cleaned Data (weatherdata bucket)  
-  from(bucket: "weatherdata")
+- 🧪 2. Query from Cleaned Data (weatherdata bucket)
+```flux
+from(bucket: "weatherdata")
   |> range(start: -30d)
   |> filter(fn: (r) => r._measurement == "weather_data")
   |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value")
@@ -143,6 +145,7 @@ from(bucket: "mybucket")
   |> filter(fn: (r) => exists r.temperature and exists r.humidity and exists r.pressure and exists r.altitude)
   |> sort(columns: ["_time"])
 - 🧮 3. Count Temperature Rows (from Cleaned Bucket)
+```flux
 from(bucket: "weatherdata")
   |> range(start: -30d)
   |> filter(fn: (r) => r._measurement == "weather_data")
@@ -151,7 +154,7 @@ from(bucket: "weatherdata")
   |> filter(fn: (r) => exists r.temperature and exists r.humidity and exists r.pressure and exists r.altitude)
   |> count(column: "temperature")
 # 🐳 Docker Networking (Grafana + InfluxDB)
-docker network create my_network
-docker network connect my_network myinfluxdbs
-docker network connect my_network mygrafana
+- docker network create my_network
+- docker network connect my_network myinfluxdbs
+- docker network connect my_network mygrafana
 - Note: run this commands in windows powershell.
