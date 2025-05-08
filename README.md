@@ -94,6 +94,8 @@ The data is transmitted via the MQTT protocol (HiveMQ Cloud) and ingested into a
 │   ├── INFLUX.PY                        # Writes MQTT data into InfluxDB
 │   └── data cleaning.py                 # Cleans data before writing to DB
 │
+├── Visualization_Screenshots/
+│
 ├── Visualizations/
 │   ├── Visualization-1.py               # Temperature vs Humidity (Bar)
 │   ├── Visualization-2.py               # Pressure vs Altitude
